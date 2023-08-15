@@ -1,9 +1,29 @@
-type TypeFunAdd = (...arg: number[]) => TypeFunAdd;
+type Constructor<T = {}> = new (...args: any[]) => T;
 
-function add(...arg: number[]) {
-  const f: TypeFunAdd = add.bind(null, ...arg);
-
-  f.toString = () => arg.reduce((sum, i) => sum + i, 0).toString();
-
-  return f;
+function toString<Class extends Constructor>(
+  Value: Class,
+  context: ClassDecoratorContext<Class>
+) {
+  return class extends Value {
+    constructor(...args: any[]) {
+      super(...args);
+      console.log(JSON.stringify(this));
+      console.log(JSON.stringify(context));
+    }
+  };
 }
+
+@toString
+class Person {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  greet() {
+    return "Hello, " + this.name;
+  }
+}
+const person = new Person("Longxiang");
+console.log(person.greet());
