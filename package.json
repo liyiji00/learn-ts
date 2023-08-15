@@ -1,0 +1,8 @@
+{
+  "main": "main.ts",
+  "scripts": {
+    "build": "tsc",
+    "r": "ts-node main",
+    "rb": "node dist/main.js"
+  }
+}
