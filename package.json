@@ -3,6 +3,6 @@
   "scripts": {
     "build": "tsc",
     "r": "ts-node main",
-    "rb": "node dist/main.js"
+    "r-b": "npm run build && node dist/main.js"
   }
 }
