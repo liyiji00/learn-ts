@@ -4,5 +4,9 @@
     "build": "tsc",
     "r": "ts-node main",
     "r-b": "npm run build && node dist/main.js"
+  },
+  "devDependencies": {
+    "typescript": "5.1.6",
+    "ts-node": "10.9.1"
   }
 }
