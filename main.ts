@@ -1,6 +1,6 @@
 type Constructor<T = {}> = new (...args: any[]) => T;
 
-function toString<Class extends Constructor>(
+function toCustomString<Class extends Constructor>(
   Value: Class,
   context: ClassDecoratorContext<Class>
 ) {
@@ -13,7 +13,7 @@ function toString<Class extends Constructor>(
   };
 }
 
-@toString
+@toCustomString
 class Person {
   name: string;
 
@@ -25,5 +25,20 @@ class Person {
     return "Hello, " + this.name;
   }
 }
-const person = new Person("Longxiang");
-console.log(person.greet());
+const person = new Person("longxiang");
+
+function upperCase<T>(
+  target: undefined,
+  context: ClassFieldDecoratorContext<T, string>
+) {
+  return function (this: T, value: string) {
+    return value.toUpperCase();
+  };
+}
+
+class MyClass {
+  @upperCase
+  prop1 = "hello!";
+}
+
+console.log(new MyClass().prop1); // Logs: HELLO!
